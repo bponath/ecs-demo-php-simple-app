@@ -1,13 +1,14 @@
 pipeline {
-  agent any
   stages {
     stage('Checkout') {
+      agent any
       steps {
         echo 'Checking out master'
         git(url: 'https://github.com/bponath/ecs-demo-php-simple-app', branch: 'master')
       }
     }
     stage('BuildImage') {
+      agent any
       steps {
         echo 'Building image'
         sh '''
@@ -32,6 +33,7 @@ pipeline {
       }
     }
     stage('BuildApproved') {
+      agent any
       steps {
         echo 'Build approved'
       }
