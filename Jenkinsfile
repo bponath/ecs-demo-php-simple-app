@@ -23,16 +23,6 @@ pipeline {
         milestone 1
       }
     }
-    stage('Approval') {
-      agent none
-      input {
-        message 'Approve deployment?'
-      }
-      steps {
-        milestone 2
-        echo 'Approved'
-      }
-    }
     stage('DeployImageToStage') {
       agent any
       steps {
@@ -44,6 +34,16 @@ pipeline {
             python3 deployer_jenkins.py $STACKNAME
         '''
         milestone 3
+      }
+    }
+    stage('Approval') {
+      agent none
+      input {
+        message 'Approve deployment?'
+      }
+      steps {
+        milestone 2
+        echo 'Approved'
       }
     }
   }
