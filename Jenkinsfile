@@ -33,7 +33,7 @@ pipeline {
             aws s3 cp --recursive s3://brianlab-ecs-bluegreen/templates/ templates/
             python3 deployer_jenkins.py $STACKNAME
         '''
-        milestone 3
+        milestone 2
       }
     }
     stage('Approval') {
@@ -42,7 +42,7 @@ pipeline {
         message 'Approve deployment?'
       }
       steps {
-        milestone 2
+        milestone 3
         echo 'Approved'
       }
     }
