@@ -33,10 +33,17 @@ pipeline {
         echo 'Approved'
       }
     }
-    stage('BuildApproved') {
+    stage('BuildImage') {
       agent any
       steps {
-        echo 'Build approved'
+        echo 'Deploying new image'
+        sh '''
+            STACKNAME='ECSBlueGreen-DeploymentPipeline-1FVOAQ764ONXS-ecs-cluster'
+            aws s3 cp s3://brianlab-ecs-bluegreen/scripts/deployer_jenkins.py deployer_jenkins.py
+            aws s3 cp --recursive s3://brianlab-ecs-bluegreen/templates/ templates/
+            python3 deployer_jenkins.py $STACKNAME
+        '''
+        milestone 3
       }
     }
   }
