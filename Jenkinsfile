@@ -46,5 +46,17 @@ pipeline {
         echo 'Approved'
       }
     }
+    stage('FlipStageToProduction') {
+      agent any
+      steps {
+        echo 'Flipping stage to prod'
+        sh '''
+            ALB='ecs-demo-php-simple-app'
+            aws s3 cp s3://brianlab-ecs-bluegreen/scripts/blue_green_flip_jenkins.py blue_green_flip_jenkins.py
+            python3 blue_green_flip_jenkins.py $ALB
+        '''
+        milestone 4
+      }
+    }
   }
 }
