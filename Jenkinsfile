@@ -22,6 +22,7 @@ pipeline {
       }
     }
     stage('Approval') {
+      agent none
       input {
         message 'Approve deployment?'
       }
