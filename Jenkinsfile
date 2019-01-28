@@ -33,7 +33,7 @@ pipeline {
         echo 'Approved'
       }
     }
-    stage('BuildImage') {
+    stage('DeployImageToStage') {
       agent any
       steps {
         echo 'Deploying new image'
